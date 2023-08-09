@@ -6,6 +6,7 @@ HOSTNAME: "{{ lookup('env','HOSTNAME') }}"
 
 SERVICE_TO_PROTECT: "{{ lookup('env','SERVICE_TO_PROTECT') }}"
 SERVICE_PORT: "{{ lookup('env','SERVICE_PORT') }}"
+LOCATION_TO_PROTECT: "{{ lookup('env','LOCATION_TO_PROTECT') }}" 
 
 ####### SHIBBOLETH SECTION #######
 

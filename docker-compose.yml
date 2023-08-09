@@ -15,12 +15,13 @@ services:
     image: tomcat
 
   shibboleth-sp:
-    image: jefferyb/shibboleth
+    image: denseflux/shibboleth
     container_name: shibboleth-sp
     environment:
       ####### APACHE SECTION #######
       - SERVICE_TO_PROTECT='tomcat-server'
       - SERVICE_PORT='8080'
+      - LOCATION_TO_PROTECT='/'
       ####### SHIBBOLETH SECTION #######
       - HOSTNAME='example.com'
       - IDP_ENTITY_ID='https://samltest.id/saml/idp'
