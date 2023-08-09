@@ -25,7 +25,7 @@
        ProxyPass / http://{{ SERVICE_TO_PROTECT }}:{{ SERVICE_PORT }}/
        ProxyPassReverse / http://{{ SERVICE_TO_PROTECT }}:{{ SERVICE_PORT }}/
 
-       <Location />
+       <Location {{ LOCATION_TO_PROTECT }} >
          AuthType shibboleth
          ShibRequestSetting requireSession 1
          require valid-user
@@ -54,7 +54,7 @@
        ProxyPass / http://{{ SERVICE_TO_PROTECT }}:{{ SERVICE_PORT }}/
        ProxyPassReverse / http://{{ SERVICE_TO_PROTECT }}:{{ SERVICE_PORT }}/
 
-       <Location />
+       <Location {{ LOCATION_TO_PROTECT }} >
          AuthType shibboleth
          ShibRequestSetting requireSession 1
          require valid-user
