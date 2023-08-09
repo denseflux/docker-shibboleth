@@ -1,6 +1,9 @@
 FROM ubuntu:latest
 MAINTAINER Steve Ranford <steve.ranford@warwick.ac.uk>
 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/London
+
 ENV HOSTNAME="localhost"
 ####### APACHE SECTION #######
 ENV SERVICE_TO_PROTECT="localhost"
