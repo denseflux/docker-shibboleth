@@ -1,10 +1,11 @@
-[![](https://images.microbadger.com/badges/version/jefferyb/shibboleth-sp.svg)](http://microbadger.com/images/jefferyb/shibboleth-sp "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/jefferyb/shibboleth-sp.svg)](http://microbadger.com/images/jefferyb/shibboleth-sp "Get your own image badge on microbadger.com")
+## denseflux/shibboleth-sp
+A fork of the original Shibboleth Service Provider (SP) by jeffereyb. 
 
 ## jefferyb/shibboleth-sp
 A Shibboleth Service Provider (SP). Just put this in front a service that you would like to protect, working as a Reverse-Proxy
 
 ## Supported tags
--	[`latest` (*Dockerfile*)](https://github.com/jefferyb/docker-shibboleth-sp/blob/master/Dockerfile)
+-	[`latest` (*Dockerfile*)](https://github.com/denseflux/docker-shibboleth-sp/blob/master/Dockerfile)
 
 ## VARIABLES
 - **HOSTNAME** : *(default: "localhost")*
@@ -12,6 +13,7 @@ A Shibboleth Service Provider (SP). Just put this in front a service that you wo
 ### APACHE SECTION
 - **SERVICE_TO_PROTECT** : *(default: "localhost")*
 - **SERVICE_PORT** : *(default: "80")*
+- **LOCATION_TO_PROTECT** : *(default: "/")*
 
 ### SHIBBOLETH SECTION
 - **IDP_ENTITY_ID** : *(default: "https://samltest.id/saml/idp")*
@@ -91,9 +93,10 @@ $ oc new-app --name tomcat-server
 
 # Deploy shibboleth-sp
 $ oc new-app --name shibboleth-sp-for-tomcat \
-  --docker-image=jefferyb/shibboleth-sp \
+  --docker-image=denseflux/shibboleth-sp \
   -e SERVICE_TO_PROTECT='tomcat-server' \
   -e SERVICE_PORT='8080' \
+  -e LOCATION_TO_PROTECT='/protected/' \
   -e HOSTNAME=tomcat.example.com \
   -e IDP_ENTITY_ID=https://samltest.id/saml/idp \
   -e IDP_METADATA_URL=https://samltest.id/saml/idp \
@@ -119,6 +122,7 @@ docker run -d \
   --link tomcat-server \
   -e SERVICE_TO_PROTECT='tomcat-server' \
   -e SERVICE_PORT='8080' \
+  -e LOCATION_TO_PROTECT='/protected/' \
   -e HOSTNAME=example.com \
   -e IDP_ENTITY_ID=https://samltest.id/saml/idp \
   -e IDP_METADATA_URL=https://samltest.id/saml/idp \
@@ -127,7 +131,7 @@ docker run -d \
   -e SHIB_DOWNLOAD_METADATA=true \
   -p 80:80 \
   -p 443:443 \
-  jefferyb/shibboleth-sp
+  denseflux/shibboleth-sp
 ```
 
 You should be redirected to a shibboleth login when you visit https://example.com
@@ -137,13 +141,14 @@ You should be redirected to a shibboleth login when you visit https://example.co
 
 ```Dockerfile
 # Dockerfile
-FROM jefferyb/shibboleth-sp
+FROM denseflux/shibboleth-sp
 MAINTAINER Example User <user@example.com>
 
 ENV HOSTNAME="tomcat.example.com"
 ####### APACHE SECTION #######
 ENV SERVICE_TO_PROTECT="tomcat-server"
 ENV SERVICE_PORT="8080"
+ENV LOCATION_TO_PROTECT="/protected/"
 ####### SHIBBOLETH SECTION #######
 ENV IDP_ENTITY_ID="https://samltest.id/saml/idp"
 ENV IDP_METADATA_URL="https://samltest.id/saml/idp"
@@ -205,12 +210,13 @@ services:
     image: tomcat
 
   shibboleth-sp:
-    image: jefferyb/shibboleth
+    image: denseflux/shibboleth
     container_name: shibboleth-sp
     environment:
       ####### APACHE SECTION #######
       - SERVICE_TO_PROTECT='tomcat-server'
       - SERVICE_PORT='8080'
+      - LOCATION_TO_PROTECT='/protected/'
       ####### SHIBBOLETH SECTION #######
       - HOSTNAME='example.com'
       - IDP_ENTITY_ID='https://samltest.id/saml/idp'
