@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-MAINTAINER Jeffery Bagirimvano <jefferyb@uark.edu>
+MAINTAINER Steve Ranford <steve.ranford@warwick.ac.uk>
 
 ENV HOSTNAME="localhost"
 ####### APACHE SECTION #######
