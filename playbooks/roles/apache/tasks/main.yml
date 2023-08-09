@@ -4,7 +4,7 @@
     path: /etc/apache2/ssl
     state: directory
 
-- name: check if ssl.key exist
+- name: check if ssl.key exists
   file:
     path: /etc/apache2/ssl/ssl.key
     state: touch
