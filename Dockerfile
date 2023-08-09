@@ -5,6 +5,7 @@ ENV HOSTNAME="localhost"
 ####### APACHE SECTION #######
 ENV SERVICE_TO_PROTECT="localhost"
 ENV SERVICE_PORT="80"
+ENV LOCATION_TO_PROTECT="/"
 ####### SHIBBOLETH SECTION #######
 ENV IDP_ENTITY_ID="https://samltest.id/saml/idp"
 ENV IDP_METADATA_URL="https://samltest.id/saml/idp"
